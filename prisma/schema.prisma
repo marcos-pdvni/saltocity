@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(cuid())
+  fist_name  String
+  user_id    BigInt @unique
+  username   String
+  type       String   @default("user") // user, admin, mod, plus
+  is_active  Boolean  @default(true)
+  alertas    Alerta[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Alerta {
+  id                Int      @id @default(autoincrement())
+  user_id           String 
+  user              User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  chat_id           BigInt
+  text              String
+  is_confirmed      Boolean  @default(false)
+  confirmed_by      String?
+  confirm_vote_up   Int?
+  confirm_vote_down Int?
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+}
