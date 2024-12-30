@@ -2,14 +2,13 @@ import { create_bot_instance } from "./lib/bot_instance";
 import { info } from "./util/logger";
 import { GROUP_IDS, welcomeText } from "./util/constant";
 import { create_new_user_database } from "./lib/services";
-import { db } from "./lib/db";
 
 async function main() {
-  info("Acordando DinoMouBot... 😒");
+  info("Bot started... 👌");
 
   const bot = create_bot_instance();
 
-  info("DinoMouBot acordado! 😁");
+  info("Hey there! 🤖");
 
   bot.on("message", async (msg) => {
     const chatId = msg.chat.id;
